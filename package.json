@@ -1,21 +1,45 @@
 {
-  "name": "vite-project",
+  "name": "office-addin-taskpane-svelte",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/krmanik/Office-Addin-TaskPane-Svelte.git"
+  },
+  "license": "MIT",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "check": "svelte-check --tsconfig ./tsconfig.json"
+    "check": "svelte-check --tsconfig ./tsconfig.json",
+    "start": "office-addin-debugging start ./manifests/manifest.xml",
+    "start:desktop": "office-addin-debugging start ./manifests/manifest.xml desktop",
+    "start:web": "office-addin-debugging start ./manifests/manifest.xml web",
+    "start:excel": "office-addin-debugging start ./manifests/manifest.excel.xml",
+    "start:onenote": "office-addin-debugging start ./manifests/manifest.onenote.xml",
+    "start:powerpoint": "office-addin-debugging start ./manifests/manifest.powerpoint.xml",
+    "start:project": "office-addin-debugging start ./manifests/manifest.project.xml",
+    "start:word": "office-addin-debugging start ./manifests/manifest.word.xml",
+    "stop": "office-addin-debugging stop ./manifests/manifest.xml",
+    "validate": "office-addin-manifest validate ./manifests/manifest.xml"
   },
   "devDependencies": {
+    "@microsoft/office-js": "^1.1.84",
     "@sveltejs/vite-plugin-svelte": "^2.0.2",
     "@tsconfig/svelte": "^3.0.0",
+    "@types/office-js": "^1.0.318",
+    "office-addin-debugging": "^5.0.4",
     "svelte": "^3.55.1",
     "svelte-check": "^2.10.3",
     "tslib": "^2.5.0",
     "typescript": "^4.9.3",
-    "vite": "^4.1.0"
+    "vite": "^4.1.0",
+    "vite-plugin-html": "^3.2.0"
+  },
+  "dependencies": {
+    "@fluentui/web-components": "^2.5.12",
+    "@microsoft/fast-element": "^1.11.0",
+    "lodash-es": "^4.17.21"
   }
 }

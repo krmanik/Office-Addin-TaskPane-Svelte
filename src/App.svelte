@@ -1,46 +1,83 @@
 <script lang="ts">
-  import svelteLogo from './assets/svelte.svg'
-  import Counter from './lib/Counter.svelte'
+  import Progress from "./components/Progress.svelte";
+  import HeroList from "./components/HeroList.svelte";
+
+  import {
+    allComponents,
+    provideFluentDesignSystem,
+  } from "@fluentui/web-components";
+  provideFluentDesignSystem().register(allComponents);
+
+  let isOfficeInitialized = false;
+  window.onload = function () {
+    const Office = window.Office;
+    Office.onReady(() => {
+      console.log("Office Ready");
+      isOfficeInitialized = true;
+    });
+  };
+
+  const click = async () => {
+    return Word.run(async (context) => {
+      /**
+       * Insert your Word code here
+       */
+
+      // insert a paragraph at the end of the document.
+      const paragraph = context.document.body.insertParagraph(
+        "Hello World",
+        Word.InsertLocation.end
+      );
+
+      // change the paragraph color to blue.
+      paragraph.font.color = "blue";
+
+      await context.sync();
+    });
+  };
 </script>
 
-<main>
-  <div>
-    <a href="https://vitejs.dev" target="_blank" rel="noreferrer"> 
-      <img src="/vite.svg" class="logo" alt="Vite Logo" />
-    </a>
-    <a href="https://svelte.dev" target="_blank" rel="noreferrer"> 
-      <img src={svelteLogo} class="logo svelte" alt="Svelte Logo" />
-    </a>
-  </div>
-  <h1>Vite + Svelte</h1>
+<svelte:head>
+  <!-- Office JavaScript API -->
+  <script
+    type="text/javascript"
+    src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.js"
+  ></script>
+  <!-- For more information on Fluent UI, visit https://developer.microsoft.com/fluentui#/. -->
+  <link
+    rel="stylesheet"
+    href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-core/11.0.0/css/fabric.min.css"
+  />
+</svelte:head>
 
-  <div class="card">
-    <Counter />
-  </div>
+{#if !isOfficeInitialized}
+  <Progress
+    title="Contoso Task Pane Add-in"
+    message="Please sideload your addin to see app body."
+  />
+{:else}
+  <main>
+    <HeroList />
+    <div style="margin-top: 20px; font-size: 18px;">
+      <div>
+        Modify the source files, then click <b>Run</b>.
+      </div>
+    </div>
 
-  <p>
-    Check out <a href="https://github.com/sveltejs/kit#readme" target="_blank" rel="noreferrer">SvelteKit</a>, the official Svelte app framework powered by Vite!
-  </p>
-
-  <p class="read-the-docs">
-    Click on the Vite and Svelte logos to learn more
-  </p>
-</main>
+    <div class="run-button">
+      <fluent-button appearance="accent" onclick={click}>Run</fluent-button>
+    </div>
+  </main>
+{/if}
 
 <style>
-  .logo {
-    height: 6em;
-    padding: 1.5em;
-    will-change: filter;
-    transition: filter 300ms;
+  :global(.run-button) {
+    margin: 20px !important;
+    text-align: center;
   }
-  .logo:hover {
-    filter: drop-shadow(0 0 2em #646cffaa);
-  }
-  .logo.svelte:hover {
-    filter: drop-shadow(0 0 2em #ff3e00aa);
-  }
-  .read-the-docs {
-    color: #888;
+
+  :global(body) {
+    background-color: var(--fds-solid-background-base);
+    color: var(--fds-text-primary);
   }
 </style>
