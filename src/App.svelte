@@ -6,16 +6,15 @@
     allComponents,
     provideFluentDesignSystem,
   } from "@fluentui/web-components";
+  import { onMount } from "svelte";
   provideFluentDesignSystem().register(allComponents);
 
   let isOfficeInitialized = false;
-  window.onload = function () {
+  onMount(async () => {
     const Office = window.Office;
-    Office.onReady(() => {
-      console.log("Office Ready");
-      isOfficeInitialized = true;
-    });
-  };
+    await Office.onReady();
+    isOfficeInitialized = true;
+  })
 
   const click = async () => {
     return Word.run(async (context) => {
@@ -36,19 +35,6 @@
     });
   };
 </script>
-
-<svelte:head>
-  <!-- Office JavaScript API -->
-  <script
-    type="text/javascript"
-    src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.js"
-  ></script>
-  <!-- For more information on Fluent UI, visit https://developer.microsoft.com/fluentui#/. -->
-  <link
-    rel="stylesheet"
-    href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-core/11.0.0/css/fabric.min.css"
-  />
-</svelte:head>
 
 {#if !isOfficeInitialized}
   <Progress
