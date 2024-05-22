@@ -45,6 +45,12 @@ npm run start
 Launch the local HTTPS site on https://localhost:3000 by simply typing the following command in your console:
 
 ```
+npm run dev
+```
+
+In another terminal run following commands to use Addin in Office apps.
+
+```
 npm start
 ```
 
