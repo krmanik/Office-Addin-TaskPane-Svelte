@@ -1,39 +1,40 @@
 <script lang="ts">
-  import Progress from "./components/Progress.svelte";
-  import HeroList from "./components/HeroList.svelte";
+import "./app.css";
+import HeroList from "./components/HeroList.svelte";
+import Progress from "./components/Progress.svelte";
 
-  import {
-    allComponents,
-    provideFluentDesignSystem,
-  } from "@fluentui/web-components";
-  import { onMount } from "svelte";
-  provideFluentDesignSystem().register(allComponents);
+import {
+	allComponents,
+	provideFluentDesignSystem,
+} from "@fluentui/web-components";
+import { onMount } from "svelte";
+provideFluentDesignSystem().register(allComponents);
 
-  let isOfficeInitialized = false;
-  onMount(async () => {
-    const Office = window.Office;
-    await Office.onReady();
-    isOfficeInitialized = true;
-  })
+let isOfficeInitialized = false;
+onMount(async () => {
+	const Office = window.Office;
+	await Office.onReady();
+	isOfficeInitialized = true;
+});
 
-  const click = async () => {
-    return Word.run(async (context) => {
-      /**
-       * Insert your Word code here
-       */
+const click = async () => {
+	return Word.run(async (context) => {
+		/**
+		 * Insert your Word code here
+		 */
 
-      // insert a paragraph at the end of the document.
-      const paragraph = context.document.body.insertParagraph(
-        "Hello World",
-        Word.InsertLocation.end
-      );
+		// insert a paragraph at the end of the document.
+		const paragraph = context.document.body.insertParagraph(
+			"Hello World",
+			Word.InsertLocation.end,
+		);
 
-      // change the paragraph color to blue.
-      paragraph.font.color = "blue";
+		// change the paragraph color to blue.
+		paragraph.font.color = "blue";
 
-      await context.sync();
-    });
-  };
+		await context.sync();
+	});
+};
 </script>
 
 {#if !isOfficeInitialized}
@@ -42,10 +43,10 @@
     message="Please sideload your addin to see app body."
   />
 {:else}
-  <main>
+  <main class="flex flex-col items-center justify-center h-screen">
     <HeroList />
-    <div style="margin-top: 20px; font-size: 18px;">
-      <div>
+    <div>
+      <div class="text-blue-500 mt-4">
         Modify the source files, then click <b>Run</b>.
       </div>
     </div>
