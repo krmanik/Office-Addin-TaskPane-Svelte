@@ -1,3 +1,4 @@
+import { resolve } from "node:path";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
 import * as devCerts from "office-addin-dev-certs";
 import { defineConfig } from "vite";
@@ -21,7 +22,7 @@ export default defineConfig({
 			pages: [
 				{
 					entry: "src/main.ts",
-					filename: "taskpane.html",
+					filename: "index.html", // updated this to index.html now we serve the taskpane.html from https:localhost:3000/
 					template: "taskpane.html",
 					injectOptions: {
 						data: {
@@ -42,11 +43,20 @@ export default defineConfig({
 			],
 		}),
 	],
+	build: {
+		outDir: "dist",
+		rollupOptions: {
+			input: {
+				main: resolve(__dirname, "index.html"), // Add this line
+				commands: resolve(__dirname, "commands.html"), // Add this line
+			},
+		},
+	},
 	server: {
 		https: await getHttpsOptions(),
 		port: Number.parseInt(process.env.server_port) || 3000,
 		strictPort: false,
-		open: "/taskpane.html", // opens the correct /taskpane.html when opening browser to view in web
+		open: "/", // opens the correct /taskpane.html when opening browser to view in web
 	},
 	preview: {
 		https: await getHttpsOptions(),
