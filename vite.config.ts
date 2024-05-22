@@ -43,15 +43,6 @@ export default defineConfig({
 			],
 		}),
 	],
-	build: {
-		outDir: "dist",
-		rollupOptions: {
-			input: {
-				main: resolve(__dirname, "index.html"), // Add this line
-				commands: resolve(__dirname, "commands.html"), // Add this line
-			},
-		},
-	},
 	server: {
 		https: await getHttpsOptions(),
 		port: Number.parseInt(process.env.server_port) || 3000,
