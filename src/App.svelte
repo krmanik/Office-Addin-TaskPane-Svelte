@@ -20,8 +20,7 @@ const routes = {
 };
 </script>
 
-<body>
-  <AppLayout>
-    <Router {routes}/>
-  </AppLayout>
-</body>
+<AppLayout>
+	<Router {routes}/>
+</AppLayout>
+
