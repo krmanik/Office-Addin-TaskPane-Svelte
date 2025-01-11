@@ -24,7 +24,7 @@ function action(event: Office.AddinCommands.Event) {
   // Show a notification message
   Office.context.mailbox.item.notificationMessages.replaceAsync(
     "action",
-    message
+    message,
   );
 
   // Be sure to indicate when the add-in command function is complete
@@ -35,10 +35,10 @@ function getGlobal() {
   return typeof self !== "undefined"
     ? self
     : typeof window !== "undefined"
-    ? window
-    : typeof global !== "undefined"
-    ? global
-    : undefined;
+      ? window
+      : typeof global !== "undefined"
+        ? global
+        : undefined;
 }
 
 const g = getGlobal() as any;

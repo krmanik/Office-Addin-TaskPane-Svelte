@@ -15,6 +15,8 @@ This is Svelte template for Office Add-in project that can be managed with Visua
 ```
 git clone https://github.com/krmanik/Office-Addin-TaskPane-Svelte.git
 cd Office-Addin-TaskPane-Svelte
+
+git checkout svelte-5
 ```
 
 2. Install dependencies

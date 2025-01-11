@@ -1,26 +1,28 @@
 <script lang="ts">
-import Router from "svelte-spa-router";
-import AppLayout from "./layouts/AppLayout.svelte";
-import Home from "./routes/Home.svelte";
-import Login from "./routes/Login.svelte";
+  import {type RouterConf} from 'svelte-mini-router';
+  import {Router} from 'svelte-mini-router';
+  import Navbar from './components/Navbar.svelte';
 
-const routes = {
-	// Exact path
-	"/": Home,
+  export const routerConf: RouterConf = {
+      routes: [
+          // this is your home page
+          {path: '/', render: () => import('./routes/Home.svelte')},
 
-	// Using named parameters, with last being optional
-	"/login": Login,
+          // login page
+          {path: '/login', render: () => import('./routes/Login.svelte')},
 
-	// Wildcard parameter
-	// '/book/*': Book,
+          // taskpane
+          {path: '/taskpane.html', render: () => import('./routes/Home.svelte')},
 
-	// Catch-all
-	// This is optional, but if present it must be the last
-	// '*': NotFound,
-};
+          // commands
+          {path: '/commands.html', render: () => import('./routes/Command.svelte')},
+      ],
+  };
 </script>
 
-<AppLayout>
-	<Router {routes}/>
-</AppLayout>
-
+<div class="flex flex-col max-w-[480px] m-auto">
+  <Navbar />
+  <main class="border-x border-gray-200">
+    <Router {routerConf} />
+  </main>
+</div>

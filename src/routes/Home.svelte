@@ -9,7 +9,7 @@ import HeroList from "../components/HeroList.svelte";
 import Navbar from "../components/Navbar.svelte";
 import Progress from "../components/Progress.svelte";
 
-let isOfficeInitialized = false;
+let isOfficeInitialized = $state(false);
 onMount(async () => {
 	const Office = window.Office;
 	await Office.onReady();
